@@ -82,7 +82,29 @@ var SUPPLIES = [
     },
 ]
 
+// function export to app - loads data from JSON variable SUPPLIES
+export function loadData() {
+    $.each(SUPPLIES, function(idx, item){
+        $("#app").append(`<div id="${idx}" class="item-holder">
+        <h4>${item.name}</h4>
+        <div class="item-image">
+          <img src="images/thumbnails/${item.thumbIMG}" alt="${item.name}" />
+        </div>
+        <div class="description">
+          <div class="brief-des">
+          ${item.briefDesc}
+          </div>
+          <div class="price">Price: ${item.price}</div>
+        </div>
+      </div>`);
+    });
+
+    initListeners();
+}
+
 function initListeners() {
+
+    // shows full page popout of item when clicked
    $(".item-holder").click(function (e) {
         let itemIndex = e.currentTarget.id;
         console.log(itemIndex);
@@ -105,27 +127,10 @@ function initListeners() {
 }
 
 function addCloseListener () {
+
+    // returns to original view when close button clicked
     $(".close").click(function () {
         $("#app").html("");
         loadData();
     })
-}
-
-export function loadData() {
-    $.each(SUPPLIES, function(idx, item){
-        $("#app").append(`<div id="${idx}" class="item-holder">
-        <h4>${item.name}</h4>
-        <div class="item-image">
-          <img src="images/thumbnails/${item.thumbIMG}" alt="${item.name}" />
-        </div>
-        <div class="description">
-          <div class="brief-des">
-          ${item.briefDesc}
-          </div>
-          <div class="price">Price: ${item.price}</div>
-        </div>
-      </div>`);
-    });
-
-    initListeners();
 }
